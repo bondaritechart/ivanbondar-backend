@@ -1,0 +1,28 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Project {
+  id: Float!
+  title: String!
+}
+
+type Query {
+  projects: [Project!]!
+  project(id: Int!): Project!
+}
+
+type Mutation {
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  removeProject(id: Int!): Project!
+}
+
+input CreateProjectInput {
+  title: String!
+}
+
+input UpdateProjectInput {
+  title: String!
+  id: Int!
+}
