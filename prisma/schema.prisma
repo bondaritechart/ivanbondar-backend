@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -13,17 +14,44 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   name String
-  email String
+  email String @unique
   hashedPassword String
   hashedRefreshToken String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  projects Project[]
+  profile Profile?
+  role Role @default(USER)
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  bio String?
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
+  imageUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 
 model Project {
   id Int @id @default(autoincrement())
   title String
+  description String
+  imageUrl String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
 }

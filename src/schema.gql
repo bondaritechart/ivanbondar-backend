@@ -2,27 +2,95 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Profile {
+  id: Float!
+  bio: String!
+  userId: Float!
+  user: User!
+  imageUrl: String
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Project {
   id: Float!
   title: String!
+  description: String!
+  imageUrl: String!
+  userId: Float!
+  createdAt: String!
+  updatedAt: String!
+  user: User!
+}
+
+type User {
+  id: Float!
+  email: String!
+  name: String!
+  hashedPassword: String!
+  hashedRefreshToken: String
+  createdAt: String!
+  updatedAt: String!
+  projects: [Project]
+  profile: Profile
+  role: Role!
+}
+
+"""User roles"""
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+type SignInResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+type SignUpResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
 }
 
 type Query {
   projects: [Project!]!
   project(id: Int!): Project!
+  users: [User!]!
+  user(id: Float!): User!
 }
 
 type Mutation {
   createProject(createProjectInput: CreateProjectInput!): Project!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!
   removeProject(id: Int!): Project!
+  signIn(input: SignInInput!): SignInResponse!
+  signUp(input: CreateUserInput!): SignUpResponse!
+  logout(id: Float!): Boolean!
 }
 
 input CreateProjectInput {
   title: String!
+  userId: Float!
+  description: String!
 }
 
 input UpdateProjectInput {
   title: String!
+  userId: Float
+  description: String
   id: Int!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
 }
