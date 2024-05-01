@@ -5,6 +5,7 @@ import { SignInResponse } from 'src/graphql/auth/dto/signin.response';
 import { SignUpResponse } from 'src/graphql/auth/dto/signup.response';
 import { CreateUserInput } from 'src/graphql/user/dto/create-user.input';
 import { UserService } from 'src/graphql/user/user.service';
+import { Public } from './decorators/public.decorator';
 
 @Resolver()
 export class AuthResolver {
@@ -13,6 +14,7 @@ export class AuthResolver {
     private readonly userService: UserService,
   ) {}
 
+  @Public()
   @Mutation(() => SignInResponse)
   async signIn(@Args('input') input: SignInInput) {
     const user = await this.authService.validateUser(
@@ -30,6 +32,7 @@ export class AuthResolver {
     };
   }
 
+  @Public()
   @Mutation(() => SignUpResponse)
   async signUp(@Args('input') input: CreateUserInput) {
     return this.userService.createUser(input);
