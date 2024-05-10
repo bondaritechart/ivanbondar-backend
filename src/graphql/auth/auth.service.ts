@@ -41,7 +41,7 @@ export class AuthService {
     const payload = { email: user.email, id: user.id, role: user.role };
     const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_SECRET'),
-      expiresIn: '1d',
+      expiresIn: '30s',
     });
     const refreshToken = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_SECRET'),
@@ -69,5 +69,22 @@ export class AuthService {
     } catch (error) {
       throw new Error('Error logging out');
     }
+  }
+
+  async getNewTokens(userId: number, refreshToken: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    const isRefreshTokenMatching = await bcrypt.compare(
+      refreshToken,
+      user.hashedRefreshToken,
+    );
+    if (!isRefreshTokenMatching) {
+      throw new Error('Invalid refresh token');
+    }
+    return this.createTokens(user);
   }
 }

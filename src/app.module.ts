@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from 'src/graphql/auth/auth.module';
-import { AccessTokenGuard } from 'src/graphql/auth/guards/accessToken.guards';
+import { AccessTokenGuard } from 'src/graphql/auth/guards/accessToken.guard';
 import { AccessTokenStrategy } from 'src/graphql/auth/stragegies/accessToken.strategy';
 import { ProfileModule } from 'src/graphql/profile/profile.module';
 import { ProjectModule } from 'src/graphql/project/project.module';

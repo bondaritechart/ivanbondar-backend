@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type NewTokensResponse {
+  accessToken: String!
+  refreshToken: String!
+}
+
 type Profile {
   id: Float!
   bio: String!
@@ -69,6 +74,7 @@ type Mutation {
   signIn(input: SignInInput!): SignInResponse!
   signUp(input: CreateUserInput!): SignUpResponse!
   logout(id: Float!): Boolean!
+  getNewTokens: NewTokensResponse!
 }
 
 input CreateProjectInput {
