@@ -60,11 +60,24 @@ type SignUpResponse {
   user: User!
 }
 
+type Analytics {
+  id: Float!
+  uuid: String!
+  userId: Float
+  user: User
+  event: String!
+  data: String
+  ip: String!
+  userAgent: String!
+  referrer: String
+}
+
 type Query {
   projects: [Project!]!
   project(id: Int!): Project!
   users: [User!]!
   user(id: Float!): User!
+  analytics: [Analytics!]!
 }
 
 type Mutation {
@@ -75,6 +88,7 @@ type Mutation {
   signUp(input: CreateUserInput!): SignUpResponse!
   logout(id: Float!): Boolean!
   getNewTokens: NewTokensResponse!
+  createAnalyticsEvent(input: CreateAnalyticsInput!): Analytics!
 }
 
 input CreateProjectInput {
@@ -99,4 +113,15 @@ input CreateUserInput {
   name: String!
   email: String!
   password: String!
+}
+
+input CreateAnalyticsInput {
+  event: String!
+  data: String!
+  ip: String!
+  userId: Float
+  userAgent: String!
+  referrer: String
+  path: String!
+  uuid: String!
 }

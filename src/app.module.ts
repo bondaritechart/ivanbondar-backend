@@ -12,6 +12,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { UserModule } from './graphql/user/user.module';
+import { AnalyticsService } from './graphql/analytics/analytics.service';
+import { AnalyticsModule } from './graphql/analytics/analytics.module';
 
 @Module({
   imports: [
@@ -28,6 +30,7 @@ import { UserModule } from './graphql/user/user.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -37,6 +40,7 @@ import { UserModule } from './graphql/user/user.module';
       provide: APP_GUARD,
       useClass: AccessTokenGuard,
     },
+    AnalyticsService,
   ],
 })
 export class AppModule {}
