@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { Analytics } from 'src/graphql/analytics/entities/analytics.entity';
+import { AnalyticsEvent } from 'src/graphql/analytics/entities/analytics-event.entity';
 import { AnalyticsService } from './analytics.service';
 import { CreateAnalyticsInput } from './dto/create-analytics.input';
 import { Public } from '../auth/decorators/public.decorator';
@@ -9,14 +9,14 @@ import { Public } from '../auth/decorators/public.decorator';
 export class AnalyticsResolver {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
-  @Mutation(() => Analytics)
+  @Mutation(() => AnalyticsEvent)
   createAnalyticsEvent(
     @Args('input') createAnalyticsInput: CreateAnalyticsInput,
   ) {
     return this.analyticsService.create(createAnalyticsInput);
   }
 
-  @Query(() => [Analytics], { name: 'analytics' })
+  @Query(() => [AnalyticsEvent], { name: 'events' })
   findAll() {
     return this.analyticsService.findAll();
   }

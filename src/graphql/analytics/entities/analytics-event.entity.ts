@@ -2,11 +2,14 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/graphql/user/entities/user.entity';
 
 @ObjectType()
-export class Analytics {
+export class AnalyticsEvent {
   @Field()
   id: number;
 
-  @Field()
+  @Field({
+    description:
+      'Unique identifier for the event user session. It is used to group events by user session.',
+  })
   uuid: string;
 
   @Field({ nullable: true })

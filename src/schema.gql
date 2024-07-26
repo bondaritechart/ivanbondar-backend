@@ -60,8 +60,12 @@ type SignUpResponse {
   user: User!
 }
 
-type Analytics {
+type AnalyticsEvent {
   id: Float!
+
+  """
+  Unique identifier for the event user session. It is used to group events by user session.
+  """
   uuid: String!
   userId: Float
   user: User
@@ -77,7 +81,7 @@ type Query {
   project(id: Int!): Project!
   users: [User!]!
   user(id: Float!): User!
-  analytics: [Analytics!]!
+  events: [AnalyticsEvent!]!
 }
 
 type Mutation {
@@ -88,7 +92,7 @@ type Mutation {
   signUp(input: CreateUserInput!): SignUpResponse!
   logout(id: Float!): Boolean!
   getNewTokens: NewTokensResponse!
-  createAnalyticsEvent(input: CreateAnalyticsInput!): Analytics!
+  createAnalyticsEvent(input: CreateAnalyticsInput!): AnalyticsEvent!
 }
 
 input CreateProjectInput {

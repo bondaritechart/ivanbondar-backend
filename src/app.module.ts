@@ -7,6 +7,7 @@ import { AccessTokenStrategy } from 'src/graphql/auth/stragegies/accessToken.str
 import { ProfileModule } from 'src/graphql/profile/profile.module';
 import { ProjectModule } from 'src/graphql/project/project.module';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthController } from 'src/rest/auth/auth.controller';
 import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
@@ -32,7 +33,7 @@ import { AnalyticsModule } from './graphql/analytics/analytics.module';
     }),
     AnalyticsModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, AuthController],
   providers: [
     AccessTokenStrategy,
     PrismaService,
